@@ -7,10 +7,10 @@ from flask_cors import CORS
 # Load environment variables from the .env file
 load_dotenv()
 
-# Set Flask to serve the "frontend" folder for React
+# Set Flask to serve the "frontend/build" folder for React
 app = Flask(
     __name__,
-    static_folder=os.path.join(os.path.dirname(__file__), "../frontend"),
+    static_folder=os.path.join(os.path.dirname(__file__), "../frontend/build"),
     static_url_path=""
 )
 
@@ -37,8 +37,7 @@ def db_test():
 # Route to serve the React app
 @app.route("/")
 def serve():
-    return send_from_directory("index.html")
-
+    return send_from_directory(app.static_folder, "index.html")
 
 # Catch-all route for React routing
 @app.errorhandler(404)
