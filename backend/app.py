@@ -1,43 +1,48 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_cors import CORS
-from dotenv import load_dotenv
 import os
+from flask import Flask, send_from_directory
+from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
+from flask_cors import CORS
 
-# Load environment variables from .env file
+# Load environment variables from the .env file
 load_dotenv()
 
-# Initialize Flask app
-app = Flask(__name__)
+# Set Flask to serve the "frontend" folder for React
+app = Flask(
+    __name__,
+    static_folder=os.path.join(os.path.dirname(__file__), "../frontend"),
+    static_url_path=""
+)
+
 CORS(app)
 
-# Get the database URI from environment variables
+# Configure database connection
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.secret_key = os.getenv('SECRET_KEY')
 
-# Initialize the SQLAlchemy database instance
+# Initialize SQLAlchemy
 db = SQLAlchemy(app)
 
-# Import the Blueprints
-from routes.departmentRoutes import department_bp
-from routes.supplierRoutes import supplier_bp
-from routes.productsRoutes import product_bp
-from routes.authRoutes import auth_bp
-from routes.purchaseRoutes import purchase_bp
-# from routes.evaluateRoutes import evaluate_bp
+# Test database connection route
+@app.route("/db-test")
+def db_test():
+    try:
+        # Example query to test database connection
+        result = db.session.execute("SELECT 1").fetchone()
+        return f"Database connection successful: {result[0]}"
+    except Exception as e:
+        return f"Database connection failed: {e}"
 
-# # Register the Blueprints
-app.register_blueprint(department_bp)
-app.register_blueprint(supplier_bp)
-app.register_blueprint(product_bp)
-app.register_blueprint(auth_bp)
-app.register_blueprint(purchase_bp)
-# app.register_blueprint(evaluate_bp)
+# Route to serve the React app
+@app.route("/")
+def serve():
+    return send_from_directory(app.static_folder, "index.html")
 
-@app.route('/')
-def hello():
-    return 'Hotdog'
+# Catch-all route for React routing
+@app.errorhandler(404)
+def not_found(e):
+    return send_from_directory(app.static_folder, "index.html")
 
-# Run the app
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=5000)
