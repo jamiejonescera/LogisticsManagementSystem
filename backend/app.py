@@ -37,7 +37,8 @@ def db_test():
 # Route to serve the React app
 @app.route("/")
 def serve():
-    return send_from_directory(app.static_folder, "index.html")
+    return send_from_directory("index.html")
+
 
 # Catch-all route for React routing
 @app.errorhandler(404)
