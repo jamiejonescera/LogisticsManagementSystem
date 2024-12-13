@@ -10,7 +10,7 @@ load_dotenv()
 # Set Flask to serve the "frontend/build" folder for React
 app = Flask(
     __name__,
-    static_folder=os.path.join(os.path.dirname(__file__), "../frontend/build"),
+    static_folder=os.path.join(os.path.dirname(__file__), "..frontend/build"),
     static_url_path=""
 )
 
