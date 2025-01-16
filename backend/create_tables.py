@@ -10,6 +10,7 @@ from models.evaluate import Evaluation
 from models.damage import DamagedItem
 from models.inventory import Inventory
 from models.maintenance import Maintenance
+from models.departmentrequest import DepartmentRequest
 
 # Create the tables and define triggers
 with app.app_context():

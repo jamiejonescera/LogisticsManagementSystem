@@ -1,31 +1,3 @@
-// import { useState, useEffect } from 'react';
-
-// export function useInventory() {
-//   const [inventory, setInventory] = useState([]);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState(null);
-
-//   useEffect(() => {
-//     async function fetchInventory() {
-//       try {
-//         const response = await fetch('/api/inventory/');
-//         if (!response.ok) {
-//           throw new Error('Failed to fetch inventory');
-//         }
-//         const data = await response.json();
-//         setInventory(data);
-//       } catch (err) {
-//         setError(err.message);
-//       } finally {
-//         setLoading(false);
-//       }
-//     }
-
-//     fetchInventory();
-//   }, []);
-
-//   return { inventory, setInventory, loading, error };
-// }
 import { useState, useEffect } from 'react';
 
 export function useInventory() {

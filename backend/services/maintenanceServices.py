@@ -109,18 +109,20 @@ def take_action_condemned(maintenance_id, data):
         db.session.rollback()
         return make_response(jsonify({"error": "Internal Server Error", "message": str(e)}), 500)
 
-
-
 def get_maintenance():
     try:
         # Fetch all maintenance records and sort by maintenance_id in ascending order
         maintenances = Maintenance.query.order_by(Maintenance.maintenance_id.asc()).all()
         maintenance_list = [maintenance.to_dict() for maintenance in maintenances]
 
+        # Count the total number of condemned maintenance records
+        total_condemned = Maintenance.query.filter_by(status=MaintenanceStatus.condemned).count()
+
         total_maintenance = len(maintenances)
 
         response_data = {
             "total_maintenance": total_maintenance,
+            "total_condemned": total_condemned,
             "maintenances": maintenance_list
         }
 

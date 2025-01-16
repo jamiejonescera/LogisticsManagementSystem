@@ -26,7 +26,7 @@ export default function EvaluateList() {
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [selectedEvaluation, setSelectedEvaluation] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const newEvaluationRef = useRef(null); // Reference to the newly added or updated evaluation
+  const newEvaluationRef = useRef(null); 
 
   // Open View Modal with selected evaluation
   const openViewModal = (evaluationId) => {

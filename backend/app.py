@@ -29,6 +29,7 @@ from routes.damageRoutes import damage_bp
 from routes.inventoryRoutes import inventory_bp
 from routes.productsupplierRoutes import product_supplier_bp
 from routes.maintenanceRoutes import maintenance_bp
+from routes.departmentrequestRoutes import departmentrequest_bp
 
 # # Register the Blueprints
 app.register_blueprint(department_bp)
@@ -41,6 +42,7 @@ app.register_blueprint(damage_bp)
 app.register_blueprint(inventory_bp)
 app.register_blueprint(product_supplier_bp)
 app.register_blueprint(maintenance_bp)
+app.register_blueprint(departmentrequest_bp)
 
 @app.route('/')
 def hello():

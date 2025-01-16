@@ -92,14 +92,14 @@ export default function Inventory() {
           <table className="w-full text-sm text-left rtl:text-right text-gray-500">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50">
               <tr>
-                <th scope="col" className="px-6 py-4">Product Id</th>
+                {/* <th scope="col" className="px-6 py-4">Product Id</th> */}
                 <th scope="col" className="px-6 py-4">Product Name</th>
                 <th scope="col" className="px-6 py-4">Product Type</th>
                 <th scope="col" className="px-6 py-4">Product Category</th>
                 <th scope="col" className="px-6 py-4">Model</th>
                 <th scope="col" className="px-6 py-4">Brand</th>
                 <th scope="col" className="px-6 py-4">Quantity</th>
-                <th scope="col" className="px-6 py-4">Running Amount</th>
+                <th scope="col" className="px-6 py-4">Total Amount</th>
                 <th scope="col" className="px-6 py-4">Created at</th>
                 <th scope="col" className="px-6 py-4">Actions</th>
               </tr>
@@ -107,7 +107,7 @@ export default function Inventory() {
             <tbody>
               {filteredInventory.map((item, index) => (
                 <tr key={`${item.inventory_id}-${index}`} className="odd:bg-white even:bg-gray-50 border-b">
-                  <td className="px-6 py-4 text-center">{item.inventory_id}</td>
+                  {/* <td className="px-6 py-4 text-center">{item.inventory_id}</td> */}
                   <td className="px-6 py-4">{item.product_name}</td>
                   <td className="px-6 py-4">{item.product_type.charAt(0).toUpperCase() + item.product_type.slice(1)}</td>
                   <td className="px-6 py-4">{item.product_category}</td>

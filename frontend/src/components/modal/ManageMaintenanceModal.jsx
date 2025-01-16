@@ -5,7 +5,7 @@
 //   const [currentStep, setCurrentStep] = useState(1);
 //   const [notes, setNotes] = useState('');
 //   const [showConfirmation, setShowConfirmation] = useState(false);
-//   const [confirmationAction, setConfirmationAction] = useState(null); 
+//   const [confirmationAction, setConfirmationAction] = useState(null);
 
 //   // Reset notes and confirmation state when modal closes
 //   useEffect(() => {
@@ -115,7 +115,7 @@
 //       toast.error('Please provide notes before proceeding.');
 //       return;
 //     }
-//     setConfirmationAction(action); 
+//     setConfirmationAction(action);
 //     setShowConfirmation(true);
 //   };
 
@@ -177,43 +177,40 @@
 //             </div>
 //           )}
 //           {currentStep === 2 && (
-//   <div>
-//     <div className="mt-4 space-y-4">
-//       <div className="flex justify-between items-center bg-gray-100 p-2 rounded-md shadow-sm">
-//         <span className="text-gray-600 font-medium">Product Name:</span>
-//         <span className="text-gray-800">{maintenance?.product_name || 'N/A'}</span>
-//       </div>
-//       <div className="flex justify-between items-center bg-gray-100 p-2 rounded-md shadow-sm">
-//         <span className="text-gray-600 font-medium">Description:</span>
-//         <span className="text-gray-800">{maintenance?.description || 'N/A'}</span>
-//       </div>
-//       <div className="flex justify-between items-center bg-gray-100 p-2 rounded-md shadow-sm">
-//         <span className="text-gray-600 font-medium">Engineer Name:</span>
-//         <span className="text-gray-800">{maintenance?.engineer_name || 'N/A'}</span>
-//       </div>
-//       <div className="mt-3">
-//         <label className="block text-gray-700 font-medium mb-2">
-//           Action Taken
-//         </label>
-//         <textarea
-//           value={notes}
-//           onChange={(e) => setNotes(e.target.value)}
-//           className="w-full p-2 border rounded-md shadow-sm"
-//           rows="4"
-//           placeholder="Enter action taken here..."
-//         ></textarea>
-//       </div>
-//     </div>
-//   </div>
-// )}
-
+//             <div>
+//               <div className="mt-4 space-y-4">
+//                 <div className="flex justify-between items-center bg-gray-100 p-2 rounded-md shadow-sm">
+//                   <span className="text-gray-600 font-medium">Product Name:</span>
+//                   <span className="text-gray-800">{maintenance?.product_name || 'N/A'}</span>
+//                 </div>
+//                 <div className="flex justify-between items-center bg-gray-100 p-2 rounded-md shadow-sm">
+//                   <span className="text-gray-600 font-medium">Description:</span>
+//                   <span className="text-gray-800">{maintenance?.description || 'N/A'}</span>
+//                 </div>
+//                 <div className="flex justify-between items-center bg-gray-100 p-2 rounded-md shadow-sm">
+//                   <span className="text-gray-600 font-medium">Engineer Name:</span>
+//                   <span className="text-gray-800">{maintenance?.engineer_name || 'N/A'}</span>
+//                 </div>
+//                 <div className="mt-3">
+//                   <label className="block text-gray-700 font-medium mb-2">Action Taken</label>
+//                   <textarea
+//                     value={notes}
+//                     onChange={(e) => setNotes(e.target.value)}
+//                     className="w-full p-2 border rounded-md shadow-sm"
+//                     rows="4"
+//                     placeholder="Enter action taken here..."
+//                   ></textarea>
+//                 </div>
+//               </div>
+//             </div>
+//           )}
 //         </div>
 
 //         {/* Confirmation Dialog */}
 //         {showConfirmation && (
 //           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
 //             <div className="bg-white rounded-lg p-4 w-full max-w-md shadow-lg">
-//               <h4 className="text-lg font-bold mb-3">Are you sure?</h4>
+
 //               <p className="mb-4">
 //                 Are you sure you want to mark this maintenance as{' '}
 //                 {confirmationAction === 'complete' ? 'Repaired' : 'Disposed'}?
@@ -241,45 +238,44 @@
 //         )}
 
 //         {/* Modal Footer */}
-// <div className="mt-4">
-//   {currentStep === 1 && (
-//     <div className="flex justify-end">
-//       <button
-//         onClick={handleTakeAction}
-//         className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-//       >
-//         Take Action
-//       </button>
-//     </div>
-//   )}
-//   {currentStep === 2 && (
-//     <div className="flex justify-between">
-//       <button
-//         onClick={() => confirmAction('condemn')}
-//         disabled={!notes.trim()}
-//         className={`px-4 py-2 rounded-lg ${
-//           notes.trim()
-//             ? 'bg-red-500 text-white hover:bg-red-600'
-//             : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-//         }`}
-//       >
-//         Disposed Assets
-//       </button>
-//       <button
-//         onClick={() => confirmAction('complete')}
-//         disabled={!notes.trim()}
-//         className={`px-4 py-2 rounded-lg ${
-//           notes.trim()
-//             ? 'bg-green-500 text-white hover:bg-green-600'
-//             : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-//         }`}
-//       >
-//         Repaired
-//       </button>
-//     </div>
-//   )}
-// </div>
-
+//         <div className="mt-4">
+//           {currentStep === 1 && (
+//             <div className="flex justify-end">
+//               <button
+//                 onClick={handleTakeAction}
+//                 className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+//               >
+//                 Take Action
+//               </button>
+//             </div>
+//           )}
+//           {currentStep === 2 && (
+//             <div className="flex justify-between">
+//               <button
+//                 onClick={() => confirmAction('condemn')}
+//                 disabled={!notes.trim()}
+//                 className={`px-4 py-2 rounded-lg ${
+//                   notes.trim()
+//                     ? 'bg-red-500 text-white hover:bg-red-600'
+//                     : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+//                 }`}
+//               >
+//                 Disposed Assets
+//               </button>
+//               <button
+//                 onClick={() => confirmAction('complete')}
+//                 disabled={!notes.trim()}
+//                 className={`px-4 py-2 rounded-lg ${
+//                   notes.trim()
+//                     ? 'bg-green-500 text-white hover:bg-green-600'
+//                     : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+//                 }`}
+//               >
+//                 Repaired
+//               </button>
+//             </div>
+//           )}
+//         </div>
 //       </div>
 //     </div>
 //   );
@@ -294,6 +290,7 @@ const ManageMaintenanceModal = ({ isOpen, onClose, maintenance, setMaintenanceRe
   const [notes, setNotes] = useState('');
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [confirmationAction, setConfirmationAction] = useState(null);
+  const [isConfirmed, setIsConfirmed] = useState(false);
 
   // Reset notes and confirmation state when modal closes
   useEffect(() => {
@@ -301,6 +298,7 @@ const ManageMaintenanceModal = ({ isOpen, onClose, maintenance, setMaintenanceRe
       setNotes('');
       setShowConfirmation(false);
       setConfirmationAction(null);
+      setIsConfirmed(false); // Reset confirmation checkbox
     }
   }, [isOpen]);
 
@@ -461,6 +459,22 @@ const ManageMaintenanceModal = ({ isOpen, onClose, maintenance, setMaintenanceRe
                   <span className="text-gray-600 font-medium">Engineer:</span>
                   <span className="text-gray-800">{maintenance?.engineer_name || 'N/A'}</span>
                 </div>
+                {/* Confirmation Checkbox */}
+                <div className="mb-4 flex items-center">
+                  <input
+                    type="checkbox"
+                    id="confirm"
+                    checked={isConfirmed}
+                    onChange={(e) => setIsConfirmed(e.target.checked)}
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  />
+                  <label
+                    htmlFor="confirm"
+                    className="ml-2 block text-sm text-gray-700"
+                  >
+                    I confirm that the information I filled is correct.
+                  </label>
+                </div>
               </div>
             </div>
           )}
@@ -498,7 +512,6 @@ const ManageMaintenanceModal = ({ isOpen, onClose, maintenance, setMaintenanceRe
         {showConfirmation && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
             <div className="bg-white rounded-lg p-4 w-full max-w-md shadow-lg">
-
               <p className="mb-4">
                 Are you sure you want to mark this maintenance as{' '}
                 {confirmationAction === 'complete' ? 'Repaired' : 'Disposed'}?
@@ -531,7 +544,10 @@ const ManageMaintenanceModal = ({ isOpen, onClose, maintenance, setMaintenanceRe
             <div className="flex justify-end">
               <button
                 onClick={handleTakeAction}
-                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                disabled={!isConfirmed}
+                className={`px-4 py-2 rounded-lg ${
+                  isConfirmed ? 'bg-blue-500 text-white hover:bg-blue-600' : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                }`}
               >
                 Take Action
               </button>

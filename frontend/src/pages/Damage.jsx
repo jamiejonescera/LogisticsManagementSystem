@@ -47,9 +47,9 @@ export default function Damage() {
       toast.success(successMessage);
       closeViewModal(false);
 
-      setTimeout(() => {
-        window.location.reload();
-      }, 600);
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 600);
 
     } catch (error) {
       console.error('Error marking as replaced:', error);
@@ -110,43 +110,51 @@ export default function Damage() {
               </tr>
             </thead>
             <tbody>
-              {damages.map((damage, index) => (
-                <tr
-                  key={`${damage.damaged_item_id}-${index}`}
-                  className="odd:bg-white even:bg-gray-50 border-b"
-                >
-                  {/* <td className="px-6 py-4">{index + 1}</td> */}
-                  <td className="px-6 py-4">{damage.product_name}</td>
-                  <td className="px-6 py-4">{damage.product_brand}</td>
-                  <td className="px-6 py-4">{damage.product_model}</td>
-                  <td className="px-6 py-4">{damage.quantity}</td>
-                  <td className="px-6 py-4">
-  {['pending', 'replaced', 'rejected'].includes(damage.return_status) && (
-    <span
-      className={`${
-        damage.return_status === 'pending' ? 'text-orange-500' : ''
-      } ${damage.return_status === 'replaced' ? 'text-green-500' : ''} ${
-        damage.return_status === 'rejected' ? 'text-red-500' : ''
-      }`}
+  {damages.map((damage, index) => (
+    <tr
+      key={`${damage.damaged_item_id}-${index}`}
+      className="odd:bg-white even:bg-gray-50 border-b"
     >
-      {damage.return_status.charAt(0).toUpperCase() + damage.return_status.slice(1)}
-    </span>
-  )}
-</td>
+      <td className="px-6 py-4">{damage.product_name}</td>
+      <td className="px-6 py-4">{damage.product_brand}</td>
+      <td className="px-6 py-4">{damage.product_model}</td>
+      <td className="px-6 py-4">{damage.quantity}</td>
+      <td className="px-6 py-4">
+        {['pending', 'replaced', 'rejected'].includes(damage.return_status) && (
+          <span
+            className={`${
+              damage.return_status === 'pending' ? 'text-orange-500' : ''
+            } ${damage.return_status === 'replaced' ? 'text-green-500' : ''} ${
+              damage.return_status === 'rejected' ? 'text-red-500' : ''
+            }`}
+          >
+            {damage.return_status.charAt(0).toUpperCase() + damage.return_status.slice(1)}
+          </span>
+        )}
+      </td>
+      <td className="px-6 py-4">{damage.created_at}</td>
+      <td className="px-6 py-4">{damage.updated_at}</td>
+      <td className="px-6 py-4 flex space-x-2">
+        {damage.return_status === 'pending' ? (
+          <button
+            className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-3 py-2"
+            onClick={() => openViewModal(damage)}
+          >
+            Manage
+          </button>
+        ) : (
+          <button
+            className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2"
+            onClick={() => openViewModal(damage)}
+          >
+            View  
+          </button>
+        )}
+      </td>
+    </tr>
+  ))}
+</tbody>
 
-                  <td className="px-6 py-4">{damage.created_at}</td>
-                  <td className="px-6 py-4">{damage.updated_at}</td>
-                  <td className="px-6 py-4 flex space-x-2">
-                    <button
-                      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2"
-                      onClick={() => openViewModal(damage)}
-                    >
-                      View
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
           </table>
         )}
       </div>

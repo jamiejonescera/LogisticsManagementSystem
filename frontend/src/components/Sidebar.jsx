@@ -15,7 +15,8 @@ import {
   faWarehouse,
   faWrench,
   faPen,
-  faHandshake
+  faHandshake,
+  faEnvelopeOpenText
 } from '@fortawesome/free-solid-svg-icons'; 
 import Logout from './Logout';
 import { Link, useLocation } from 'react-router-dom';
@@ -25,7 +26,7 @@ import { useDamages } from '../hooks/useDamages';
 const Sidebar = () => {
   const [isManagementsOpen, setIsManagementsOpen] = useState(false);
   const [isPurchasesOpen, setIsPurchasesOpen] = useState(false);
-  const [isEvaluateOpen, setIsEvaluateOpen] = useState(false); 
+  const [isEvaluateOpen, setIsEvaluateOpen] = useState(false);
   const { totalPendingDamages } = useDamages();
   
   const location = useLocation();
@@ -35,7 +36,6 @@ const Sidebar = () => {
     setIsManagementsOpen(
       location.pathname.includes('products') ||
       location.pathname.includes('suppliers') ||
-      location.pathname.includes('departments') ||
       location.pathname.includes('product-supplier')
     );
   }, [location.pathname]);
@@ -83,103 +83,6 @@ const Sidebar = () => {
 
           <hr className="border-t border-gray-300 my-4" />
 
-          {/* Purchase Section Toggle */}
-          <li>
-            <button
-              onClick={togglePurchases}
-              className={`text-white hover:bg-green-800 text-[15px] flex items-center rounded px-4 py-3 transition-all w-full text-left ${isPurchasesOpen ? 'text-blue-600' : ''}`}
-            >
-              <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />
-              <span>Purchase</span>
-              <FontAwesomeIcon icon={faChevronDown} className={`ml-auto transform ${isPurchasesOpen ? 'rotate-180' : ''}`} />
-            </button>
-            {isPurchasesOpen && (
-              <ul className="pl-6 mt-1 space-y-1">
-                <li>
-                  <Link 
-                    to="/purchase-request"
-                    className={`text-white flex items-center rounded px-4 py-2 transition-all ${isActive('/purchase-request') ? 'bg-green-800' : 'hover:bg-green-800'} text-[15px]`}
-                  >
-                    <FontAwesomeIcon icon={faPlus} className="mr-2" />
-                    <span>Purchase Request</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link 
-                    to="/purchase-request-list"
-                    className={`text-white flex items-center rounded px-4 py-2 transition-all ${isActive('/purchase-request-list') ? 'bg-green-800' : 'hover:bg-green-800'} text-[15px]`}
-                  >
-                    <FontAwesomeIcon icon={faList} className="mr-2" />
-                    <span>Purchase List</span>
-                  </Link>
-                </li>
-              </ul>
-            )}
-          </li>
-          <hr className="border-t border-gray-300 my-4" />
-
-          {/* Evaluate Section Toggle */}
-          <li>
-            <button
-              onClick={toggleEvaluate}
-              className={`text-white hover:bg-green-800 text-[15px] flex items-center rounded px-4 py-3 transition-all w-full text-left ${isEvaluateOpen ? 'text-blue-600' : ''}`}
-            >
-              <FontAwesomeIcon icon={faClipboardCheck} className="mr-2" />
-              <span>Evaluate</span>
-              <FontAwesomeIcon icon={faChevronDown} className={`ml-auto transform ${isEvaluateOpen ? 'rotate-180' : ''}`} />
-            </button>
-            {isEvaluateOpen && (
-              <ul className="pl-6 mt-1 space-y-1">
-                <li>
-                  <Link 
-                    to="/evaluate"
-                    className={`text-white flex items-center rounded px-4 py-2 transition-all ${isActive('/evaluate') ? 'bg-green-800' : 'hover:bg-green-800'} text-[15px]`}
-                  >
-                    <FontAwesomeIcon icon={faPen } className="mr-2" />
-                    <span>Evaluate</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link 
-                    to="/evaluate-list"
-                    className={`text-white flex items-center rounded px-4 py-2 transition-all ${isActive('/evaluate-list') ? 'bg-green-800' : 'hover:bg-green-800'} text-[15px]`}
-                  >
-                    <FontAwesomeIcon icon={faList} className="mr-2" />
-                    <span>Evaluate List</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link 
-                    to="/damage"
-                    className={`text-white flex items-center rounded px-4 py-2 transition-all ${isActive('/damage') ? 'bg-green-800' : 'hover:bg-green-800'} text-[15px]`}
-                  >
-                    <FontAwesomeIcon icon={faExclamationTriangle} className="mr-2" />
-                    <span>Damaged</span>
-                    {totalPendingDamages > 0 && (
-                      <div className="ml-2 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs">
-                        {totalPendingDamages}
-                      </div>
-                    )}
-                  </Link>
-                </li>
-              </ul>
-            )}
-          </li>
-
-           {/* Inventory Route */}
-           <hr className="border-t border-gray-300 my-4" />
-          <li>
-            <Link 
-              to="/inventory"
-              className={`text-white flex items-center rounded px-4 py-3 transition-all ${isActive('/inventory') ? 'bg-green-800' : 'hover:bg-green-800'} text-[15px}`}
-            >
-              <FontAwesomeIcon icon={faWarehouse} className="mr-2" />
-              <span>Inventory</span>
-            </Link>
-          </li>
-
-          <hr className="border-t border-gray-300 my-4" />
-
           {/* Management Toggle */}
           <li>
             <button
@@ -213,25 +116,136 @@ const Sidebar = () => {
                 <li>
                   <Link 
                     to="/product-supplier"
-                    className={`text-white flex items-center rounded px-4 py-2 transition-all ${isActive('/product-supplier') ? 'bg-green-800' : 'hover:bg-green-800'} text-[15px}`} // add this line
+                    className={`text-white flex items-center rounded px-4 py-2 transition-all ${isActive('/product-supplier') ? 'bg-green-800' : 'hover:bg-green-800'} text-[15px}`}
                   >
                     <FontAwesomeIcon icon={faHandshake} className="mr-2" />
                     <span>Product Supplier</span>
                   </Link>
                 </li>
+              </ul>
+            )}
+          </li>
+
+          {/* Department Facility Route */}
+          <hr className="border-t border-gray-300 my-4" />
+          <li>
+            <Link 
+              to="/departments"
+              className={`text-white flex items-center rounded px-4 py-3 transition-all ${isActive('/departments') ? 'bg-green-800' : 'hover:bg-green-800'} text-[15px}`}
+            >
+              <FontAwesomeIcon icon={faBuilding} className="mr-2" />
+              <span>Department Facility</span>
+            </Link>
+          </li>
+
+          {/* Purchase Section Toggle */}
+          <hr className="border-t border-gray-300 my-4" />
+          <li>
+            <button
+              onClick={togglePurchases}
+              className={`text-white hover:bg-green-800 text-[15px] flex items-center rounded px-4 py-3 transition-all w-full text-left ${isPurchasesOpen ? 'text-blue-600' : ''}`}
+            >
+              <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />
+              <span>Purchase</span>
+              <FontAwesomeIcon icon={faChevronDown} className={`ml-auto transform ${isPurchasesOpen ? 'rotate-180' : ''}`} />
+            </button>
+            {isPurchasesOpen && (
+              <ul className="pl-6 mt-1 space-y-1">
                 <li>
                   <Link 
-                    to="/departments"
-                    className={`text-white flex items-center rounded px-4 py-2 transition-all ${isActive('/departments') ? 'bg-green-800' : 'hover:bg-green-800'} text-[15px}`}
+                    to="/purchase-request"
+                    className={`text-white flex items-center rounded px-4 py-2 transition-all ${isActive('/purchase-request') ? 'bg-green-800' : 'hover:bg-green-800'} text-[15px}`}
                   >
-                    <FontAwesomeIcon icon={faBuilding} className="mr-2" />
-                    <span>Department Facility</span>
+                    <FontAwesomeIcon icon={faPlus} className="mr-2" />
+                    <span>Purchase Request</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link 
+                    to="/purchase-request-list"
+                    className={`text-white flex items-center rounded px-4 py-2 transition-all ${isActive('/purchase-request-list') ? 'bg-green-800' : 'hover:bg-green-800'} text-[15px}`}
+                  >
+                    <FontAwesomeIcon icon={faList} className="mr-2" />
+                    <span>Purchase List</span>
                   </Link>
                 </li>
               </ul>
             )}
           </li>
-          
+
+          {/* Evaluate Section Toggle */}
+          <hr className="border-t border-gray-300 my-4" />
+          <li>
+            <button
+              onClick={toggleEvaluate}
+              className={`text-white hover:bg-green-800 text-[15px] flex items-center rounded px-4 py-3 transition-all w-full text-left ${isEvaluateOpen ? 'text-blue-600' : ''}`}
+            >
+              <FontAwesomeIcon icon={faClipboardCheck} className="mr-2" />
+              <span>Evaluate</span>
+              <FontAwesomeIcon icon={faChevronDown} className={`ml-auto transform ${isEvaluateOpen ? 'rotate-180' : ''}`} />
+            </button>
+            {isEvaluateOpen && (
+              <ul className="pl-6 mt-1 space-y-1">
+                <li>
+                  <Link 
+                    to="/evaluate"
+                    className={`text-white flex items-center rounded px-4 py-2 transition-all ${isActive('/evaluate') ? 'bg-green-800' : 'hover:bg-green-800'} text-[15px}`}
+                  >
+                    <FontAwesomeIcon icon={faPen} className="mr-2" />
+                    <span>Evaluate</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link 
+                    to="/evaluate-list"
+                    className={`text-white flex items-center rounded px-4 py-2 transition-all ${isActive('/evaluate-list') ? 'bg-green-800' : 'hover:bg-green-800'} text-[15px}`}
+                  >
+                    <FontAwesomeIcon icon={faList} className="mr-2" />
+                    <span>Evaluate List</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link 
+                    to="/damage"
+                    className={`text-white flex items-center rounded px-4 py-2 transition-all ${isActive('/damage') ? 'bg-green-800' : 'hover:bg-green-800'} text-[15px}`}
+                  >
+                    <FontAwesomeIcon icon={faExclamationTriangle} className="mr-2" />
+                    <span>Damaged</span>
+                    {totalPendingDamages > 0 && (
+                      <div className="ml-2 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs">
+                        {totalPendingDamages}
+                      </div>
+                    )}
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </li>
+
+          {/* Inventory Route */}
+          <hr className="border-t border-gray-300 my-4" />
+          <li>
+            <Link 
+              to="/inventory"
+              className={`text-white flex items-center rounded px-4 py-3 transition-all ${isActive('/inventory') ? 'bg-green-800' : 'hover:bg-green-800'} text-[15px}`}
+            >
+              <FontAwesomeIcon icon={faWarehouse} className="mr-2" />
+              <span>Inventory</span>
+            </Link>
+          </li>
+
+          {/* Department Request Route */}
+          <hr className="border-t border-gray-300 my-4" />
+          <li>
+            <Link 
+              to="/department-request"
+              className={`text-white flex items-center rounded px-4 py-3 transition-all ${isActive('/department-request') ? 'bg-green-800' : 'hover:bg-green-800'} text-[15px}`}
+            >
+              <FontAwesomeIcon icon={faEnvelopeOpenText} className="mr-2" />
+              <span>Department Request</span>
+            </Link>
+          </li>
+
           {/* Maintenance Route */}
           <hr className="border-t border-gray-300 my-4" />
           <li>

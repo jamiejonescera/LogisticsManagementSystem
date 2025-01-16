@@ -1,14 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { useSuppliers } from '../hooks/useSupplier';
 import toast from 'react-hot-toast';
 import AddSupplierModal from '../components/modal/AddSupplierModal';
+import UpdateSupplierModal from '../components/modal/UpdateSupplierModal';
 
 export default function Suppliers() {
   const { suppliers, loading, error, setSuppliers } = useSuppliers();
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showUpdateModal, setShowUpdateModal] = useState(false); 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedSupplier, setSelectedSupplier] = useState(null);
   const [selectedSupplierId, setSelectedSupplierId] = useState(null);
   const [formData, setFormData] = useState({
     supplier_name: '',
@@ -58,6 +61,38 @@ export default function Suppliers() {
     } finally {
       setFormData({ supplier_name: '', address: '', contact_number: '' });
       setShowAddModal(false);
+    }
+  };
+
+  // Update supplier
+  const handleUpdateSupplier = async () => {
+    try {
+      const response = await fetch(`/api/supplier/update/${selectedSupplierId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || data.error) {
+        throw new Error(data.error || 'Failed to update supplier');
+      }
+
+      // Update the state with the updated supplier
+      setSuppliers((prev) =>
+        prev.map((supplier) =>
+          supplier.supplier_id === selectedSupplierId ? { ...supplier, ...formData } : supplier
+        )
+      );
+
+      toast.success(data.message);
+    } catch (error) {
+      toast.error(error.message || 'An unexpected error occurred');
+    } finally {
+      setFormData({ supplier_name: '', address: '', contact_number: '' });
+      setShowUpdateModal(false);
+      setSelectedSupplierId(null);
     }
   };
 
@@ -157,7 +192,7 @@ export default function Suppliers() {
                 <tr
                   key={supplier.supplier_id}
                   className="odd:bg-white even:bg-gray-50 border-b"
-                  ref={index === filteredSuppliers.length - 1 ? newSupplierRef : null} // Reference the last item
+                  ref={index === filteredSuppliers.length - 1 ? newSupplierRef : null}
                 >
                   <td className="px-6 py-4">{supplier.supplier_name}</td>
                   <td className="px-6 py-4">{supplier.address}</td>
@@ -165,6 +200,21 @@ export default function Suppliers() {
                   <td className="px-6 py-4">{supplier.created_at}</td>
                   <td className="px-6 py-4">{supplier.updated_at}</td>
                   <td className="px-6 py-4 flex space-x-2">
+                    <button
+                      onClick={() => {
+                        setSelectedSupplier(supplier);
+                        setSelectedSupplierId(supplier.supplier_id);
+                        setFormData({
+                          supplier_name: supplier.supplier_name,
+                          address: supplier.address,
+                          contact_number: supplier.contact_number,
+                        });
+                        setShowUpdateModal(true);
+                      }}
+                      className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-3 py-2"
+                    >
+                      <FontAwesomeIcon icon={faEdit} />
+                    </button>
                     <button
                       onClick={() => {
                         setSelectedSupplierId(supplier.supplier_id);
@@ -189,6 +239,15 @@ export default function Suppliers() {
         formData={formData}
         handleInputChange={handleInputChange}
         handleAddSupplier={handleAddSupplier}
+      />
+
+      {/* Update Supplier Modal */}
+      <UpdateSupplierModal
+        showModal={showUpdateModal}
+        setShowModal={setShowUpdateModal}
+        formData={formData}
+        handleInputChange={handleInputChange}
+        handleUpdateSupplier={handleUpdateSupplier}
       />
 
       {/* Delete Supplier Modal */}

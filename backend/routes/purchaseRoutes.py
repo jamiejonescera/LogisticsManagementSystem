@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from services.purchaseServices import create_purchase_request, get_purchase_requests, get_recent_purchase_requests, delete_purchase_request
+from services.purchaseServices import create_purchase_request, get_purchase_requests, get_recent_purchase_requests, delete_purchase_request, get_top_10_products_by_approved_requests
 
 # Create Blueprint for purchase-related routes
 purchase_bp = Blueprint('purchase', __name__, url_prefix='/api/purchase')
@@ -23,4 +23,9 @@ def create_new_purchase():
 @purchase_bp.route('/delete/<int:request_id>', methods=['DELETE'])
 def delete_purchase_request_route(request_id):
     return delete_purchase_request(request_id)
+
+# Route to get top 10 products based on the number of approved purchase requests
+@purchase_bp.route('/top10approvedproducts', methods=['GET'])
+def fetch_top_10_products_by_approved_requests():
+    return get_top_10_products_by_approved_requests()
 

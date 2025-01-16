@@ -668,17 +668,18 @@ export default function ProductSupplier() {
                   <td className="px-6 py-4">{formatDate(supplier.created_at)}</td>
                   <td className="px-6 py-4">{formatDate(supplier.updated_at)}</td>
                   <td className="px-6 py-4 flex space-x-2">
-                    <div
-                      className={`relative inline-flex items-center cursor-pointer ${
-                        supplier.status === 'active' ? 'bg-green-500' : 'bg-red-500'
-                      } rounded-full w-12 h-6 transition-colors duration-300`}
-                      onClick={() => handleToggleStatus(supplier.product_supplier_id)}
-                    >
-                      <span
-                        className={`absolute left-0 w-6 h-6 bg-white rounded-full shadow-md transform transition-transform duration-300 ${
-                          supplier.status === 'active' ? 'translate-x-6' : ''
-                        }`}></span>
-                    </div>
+                  <div
+  className={`relative inline-flex items-center cursor-pointer ${
+    supplier.status === 'active' ? 'bg-green-500' : 'bg-red-500'
+  } w-11 h-5 transition-colors duration-300`}
+  onClick={() => handleToggleStatus(supplier.product_supplier_id)}
+>
+  <span
+    className={`absolute left-0 w-6 h-6 bg-white shadow-md transform transition-transform duration-300 ${
+      supplier.status === 'active' ? 'translate-x-6' : ''
+    }`}
+  ></span>
+</div>
                     {/* Delete Button */}
                     <button
                       className="text-red-500 hover:text-red-700"

@@ -5,9 +5,10 @@ from sqlalchemy.exc import IntegrityError
 
 # Service function to get all suppliers
 def get_suppliers():
-    suppliers = Supplier.query.all()
+    # Query suppliers and order by supplier_id in ascending order
+    suppliers = Supplier.query.order_by(Supplier.supplier_id.asc()).all()
     supplier_list = [supplier.to_dict() for supplier in suppliers] 
-    total_suppliers = len(suppliers) 
+    total_suppliers = len(suppliers)
 
     # Include the total number of suppliers in the response
     response = {

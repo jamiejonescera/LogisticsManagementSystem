@@ -5,29 +5,6 @@ from app import db
 from psycopg2.errors import NumericValueOutOfRange
 from sqlalchemy.exc import IntegrityError
 
-# Service function to get all products
-def get_products():
-    # Query all products and order them by product_id in ascending order
-    products = Product.query.order_by(Product.product_id.asc()).all()
-    products_list = []
-
-    for product in products:
-        product_dict = product.to_dict()
-        products_list.append(product_dict)
-
-    return make_response(jsonify(products_list), 200)
-
-
-# Service function to get a single product by ID
-def get_product_by_id(product_id):
-    product = Product.query.get(product_id)
-
-    if product:
-        return make_response(jsonify(product.to_dict()), 200)
-
-    return make_response(jsonify({'message': 'Product not found'}), 404)
-
-
 # Service function to create a new product
 def create_product(data):
     try:
@@ -187,3 +164,25 @@ def delete_product(product_id):
     except Exception as e:
         db.session.rollback()
         return make_response(jsonify({'error': f'An unexpected error occurred: {str(e)}'}), 500)
+    
+    # Service function to get all products
+def get_products():
+    # Query all products and order them by product_id in ascending order
+    products = Product.query.order_by(Product.product_id.asc()).all()
+    products_list = []
+
+    for product in products:
+        product_dict = product.to_dict()
+        products_list.append(product_dict)
+
+    return make_response(jsonify(products_list), 200)
+
+
+# Service function to get a single product by ID
+def get_product_by_id(product_id):
+    product = Product.query.get(product_id)
+
+    if product:
+        return make_response(jsonify(product.to_dict()), 200)
+
+    return make_response(jsonify({'message': 'Product not found'}), 404)

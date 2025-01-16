@@ -3,6 +3,7 @@ from models.purchase import PurchaseRequest, PurchaseRequestStatusEnum
 from models.products import Product
 from models.supplier import Supplier
 from app import db
+from sqlalchemy import func
 
 # Service function to create a new purchase request
 def create_purchase_request(data):
@@ -114,3 +115,33 @@ def delete_purchase_request(request_id):
     except Exception as e:
         db.session.rollback()
         return jsonify({'error': str(e)}), 500
+
+# Service function to get top 10 products based on the number of approved purchase requests
+def get_top_10_products_by_approved_requests():
+    try:
+        # Query to get the top 10 products with the highest number of approved purchase requests
+        top_10_products = db.session.query(
+            PurchaseRequest.product_id,
+            Product.name,
+            func.count(PurchaseRequest.request_id).label('total_purchases')
+        ).join(Product, PurchaseRequest.product_id == Product.product_id)\
+        .filter(PurchaseRequest.status == PurchaseRequestStatusEnum.approved)\
+        .group_by(PurchaseRequest.product_id, Product.name)\
+        .order_by(func.count(PurchaseRequest.request_id).desc())\
+        .limit(10).all()
+
+        if not top_10_products:
+            return make_response(jsonify({'message': 'No approved purchase requests found'}), 404)
+
+        top_10_products_list = [
+            {
+                'product_id': product_id,
+                'product_name': product_name,
+                'total_purchases': total_purchases
+            } for product_id, product_name, total_purchases in top_10_products
+        ]
+
+        return make_response(jsonify(top_10_products_list), 200)
+
+    except Exception as e:
+        return make_response(jsonify({'error': str(e)}), 500)
