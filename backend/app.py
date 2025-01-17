@@ -31,7 +31,7 @@ from routes.productsupplierRoutes import product_supplier_bp
 from routes.maintenanceRoutes import maintenance_bp
 from routes.departmentrequestRoutes import departmentrequest_bp
 
-# # Register the Blueprints
+# Register the Blueprints
 app.register_blueprint(department_bp)
 app.register_blueprint(supplier_bp)
 app.register_blueprint(product_bp)
@@ -50,4 +50,4 @@ def hello():
 
 # Run the app
 if __name__ == '__main__':
-    (debug=True, port=8000, host='0.0.0.0')
+    app.run(debug=True, port=8000, host='0.0.0.0')
