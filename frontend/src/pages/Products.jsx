@@ -111,7 +111,7 @@ export default function Products() {
     };
 
     try {
-      const response = await fetch('/api/products/create', {
+      const response = await fetch('https://logisticsmanagementsystem-5c8t.onrender.com/api/products/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
