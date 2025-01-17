@@ -99,9 +99,10 @@ export default function Products() {
     });
   };
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const newProduct = {
       name: formValues.productName,
       category: formValues.category,
@@ -109,7 +110,7 @@ export default function Products() {
       model: formValues.model || 'N/A',
       brand: formValues.brand || 'N/A',
     };
-
+  
     try {
       const response = await fetch('/api/products/create', {
         method: 'POST',
@@ -118,26 +119,38 @@ export default function Products() {
         },
         body: JSON.stringify(newProduct),
       });
-
+  
+      // Check if the server responded with an error
       if (!response.ok) {
-        const errorResponse = await response.json();
+        // Try to read the response as JSON (if it exists)
+        let errorResponse;
+        try {
+          errorResponse = await response.json();
+        } catch {
+          errorResponse = { error: 'Unexpected server error' }; // Fallback for non-JSON errors
+        }
         throw new Error(errorResponse.error || 'Failed to create product');
       }
-
+  
+      // Safely parse the response
       const { product, message } = await response.json();
-
+  
+      // Success logic
       closeModal();
       toast.success(message || 'Product added successfully!');
-
+  
+      // Update state
       setProducts((prevProducts) => [
         ...prevProducts,
         product,
       ]);
     } catch (error) {
+      console.error('Error adding product:', error.message);
       closeModal();
       toast.error('Error: ' + (error.message || 'An unexpected error occurred.'));
     }
   };
+  
 
   const handleUpdate = async (e) => {
     e.preventDefault();
