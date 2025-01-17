@@ -48,14 +48,6 @@ app.register_blueprint(departmentrequest_bp)
 def hello():
     return 'Hotdog'
 
-@app.route('/test_db')
-def test_db():
-    try:
-        # Use text() to wrap the SQL query
-        result = db.session.execute(text('SELECT 1')).scalar()
-        return f"Database connection successful: {result}"
-    except Exception as e:
-        return f"Database connection failed: {e}"
 # Run the app
 if __name__ == '__main__':
     app.run(debug=True, port=8000, host='0.0.0.0')
