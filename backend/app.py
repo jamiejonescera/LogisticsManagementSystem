@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from dotenv import load_dotenv
 import os
+from sqlalchemy import text
 
 # Load environment variables from .env file
 load_dotenv()
@@ -22,12 +23,12 @@ db = SQLAlchemy(app)
 @app.route('/test_db', methods=['GET'])
 def test_db_connection():
     try:
-        # Try a simple query to test the database connection
-        result = db.session.execute('SELECT 1')
+        # Use text() to declare the query
+        result = db.session.execute(text('SELECT 1'))
         return 'Database connection is working!', 200
     except Exception as e:
         return f'Database connection failed: {str(e)}', 500
-
+        
 # Import your Blueprints (make sure all routes are included)
 from routes.departmentRoutes import department_bp
 from routes.supplierRoutes import supplier_bp
