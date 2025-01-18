@@ -4,6 +4,7 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 from sqlalchemy import text
+import logging
 
 # Load environment variables from .env file
 load_dotenv()
@@ -28,7 +29,7 @@ def test_db_connection():
         return 'Database connection is working!', 200
     except Exception as e:
         return f'Database connection failed: {str(e)}', 500
-        
+    
 # Import your Blueprints (make sure all routes are included)
 from routes.departmentRoutes import department_bp
 from routes.supplierRoutes import supplier_bp
