@@ -1,5 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import BASE_URL from '../config';
+
+useEffect(() => {
+  fetch(`${BASE_URL}/api/endpoint`)
+    .then(response => response.json())
+    .then(data => console.log(data));
+}, []);
 
 const Logout = () => {
   return (

@@ -22,6 +22,13 @@ import Logout from './Logout';
 import { Link, useLocation } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import { useDamages } from '../hooks/useDamages';
+import BASE_URL from '../config';
+
+useEffect(() => {
+  fetch(`${BASE_URL}/api/endpoint`)
+    .then(response => response.json())
+    .then(data => console.log(data));
+}, []);
 
 const Sidebar = () => {
   const [isManagementsOpen, setIsManagementsOpen] = useState(false);

@@ -2,6 +2,14 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Header from './Header';
+import BASE_URL from '../config';
+
+useEffect(() => {
+  fetch(`${BASE_URL}/api/endpoint`)
+    .then(response => response.json())
+    .then(data => console.log(data));
+}, []);
+
 
 const Main = () => {
   return (

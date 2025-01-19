@@ -6,6 +6,8 @@ import os
 from sqlalchemy import text
 import logging
 
+# Set up logging
+logging.basicConfig(level=logging.DEBUG)
 # Load environment variables from .env file
 load_dotenv()
 

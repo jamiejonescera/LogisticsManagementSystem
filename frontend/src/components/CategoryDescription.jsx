@@ -1,4 +1,12 @@
 import React from 'react';
+import BASE_URL from '../config';
+
+useEffect(() => {
+  fetch(`${BASE_URL}/api/endpoint`)
+    .then(response => response.json())
+    .then(data => console.log(data));
+}, []);
+
 
 const CategoryDescription = () => {
   return (

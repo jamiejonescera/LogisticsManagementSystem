@@ -2,6 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { useNotifications } from '../hooks/useNotifications';
+import BASE_URL from '../config';
+
+useEffect(() => {
+  fetch(`${BASE_URL}/api/endpoint`)
+    .then(response => response.json())
+    .then(data => console.log(data));
+}, []);
+
 
 const Header = () => {
   const [currentDateTime, setCurrentDateTime] = useState('');
