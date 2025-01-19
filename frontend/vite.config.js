@@ -2,15 +2,16 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
+  base: "/",
   plugins: [react()],
   server: {
-    host: "0.0.0.0", // Expose the server to external devices
-    port: 3002, // Match the Vite dev server port
+    host: "0.0.0.0",
+    port: 3002,
     proxy: {
       "/api": {
-        target: "http://localhost:5000", // Flask backend
+        target: "https://logisticsmanagementsystem-5c8t.onrender.com",
         changeOrigin: true,
-        secure: false,
+        secure: true,
       },
     },
   },
