@@ -40,8 +40,8 @@ logs/
 # ------------------------
 #  DISTRIBUTION / BUILD
 # ------------------------
-# dist/
-build/
+dist/
+# build/
 *.egg-info/
 
 # ------------------------
