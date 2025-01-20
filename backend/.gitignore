@@ -41,7 +41,7 @@ logs/
 #  DISTRIBUTION / BUILD
 # ------------------------
 dist/
-# build/
+build/
 *.egg-info/
 
 # ------------------------
